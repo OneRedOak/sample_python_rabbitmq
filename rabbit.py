@@ -8,10 +8,7 @@ class Rabbit():
         connection = pika.BlockingConnection(pika.ConnectionParameters(
                 host='localhost'))
         channel = connection.channel()
-
-
         channel.queue_declare(queue='hello')
-
         channel.basic_publish(exchange='',
                               routing_key='hello',
                               body='Hello World!')
@@ -21,9 +18,7 @@ class Rabbit():
         connection = pika.BlockingConnection(pika.ConnectionParameters(
                 host='localhost'))
         channel = connection.channel()
-
         channel.queue_declare(queue='hello')
-
 
         def callback(ch, method, properties, body):
             self.message = body
@@ -32,7 +27,6 @@ class Rabbit():
         channel.basic_consume(callback,
                               queue='hello',
                               no_ack=True)
-
         channel.start_consuming()
 
     def relayMessage(self):
